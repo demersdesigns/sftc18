@@ -1,0 +1,13 @@
+baseurl = "/"
+languageCode = "en-us"
+title = "Blank"
+theme = "hugo-blank-theme"
+
+[params]
+	# To provide some metadata for search engines feel free to add a few
+  # information about you and your website.
+	name = "Your name"
+	description = "Describe your website"
+
+	# Format dates with Go's time formatting
+	date_format = "01-02-2006"
