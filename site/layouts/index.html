@@ -1,8 +1,4 @@
-{{ partial "header.html" . }}
-<main>
-  {{ range first 5 (where .Site.Pages "Type" "post") }}
-    {{ partial "summary.html" . }}
-  {{ end }}
-</main>
-{{ partial "sidebar.html" . }}
-{{ partial "footer.html" . }}
+{{ partial "header" . }}
+{{ partial "nav" .}}
+{{ .Content }}
+{{ partial "footer" . }}
