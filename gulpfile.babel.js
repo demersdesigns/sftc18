@@ -3,6 +3,7 @@ import {spawn} from "child_process";
 import hugoBin from "hugo-bin";
 import gutil from "gulp-util";
 import postcss from "gulp-postcss";
+import tailwindcss from "tailwindcss";
 import cssImport from "postcss-import";
 import cssnext from "postcss-cssnext";
 import BrowserSync from "browser-sync";
@@ -23,13 +24,15 @@ gulp.task("hugo-preview", (cb) => buildSite(cb, hugoArgsPreview));
 gulp.task("build", ["css", "js"], (cb) => buildSite(cb, [], "production"));
 gulp.task("build-preview", ["css", "js"], (cb) => buildSite(cb, hugoArgsPreview, "production"));
 
-// Compile CSS with PostCSS
-gulp.task("css", () => (
-  gulp.src("./src/css/*.css")
-    .pipe(postcss([cssImport({from: "./src/css/main.css"}), cssnext()]))
-    .pipe(gulp.dest("./dist/css"))
-    .pipe(browserSync.stream())
-));
+// Compile CSS with PostCSS/Tailwind
+gulp.task("css", () => {
+  gulp.src("./src/css/style.css")
+    .pipe(postcss([
+      tailwindcss("./tailwind-config.js")
+    ]))
+    .pipe(gulp.dest("./dist/css/"));
+
+});
 
 // Compile Javascript
 gulp.task("js", (cb) => {
