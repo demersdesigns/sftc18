@@ -1,0 +1,29 @@
+@for $i from 1 through $global-iterations {
+    .u-min-height-ms-#{$i} {
+        min-height: ms($i, rem);
+    }
+
+    @include generate-breakpoints(min-height, ms-#{$i}, #{ms($i, rem)});
+}
+
+@each $percent in $percentages {
+    @each $unit in $viewport-units {
+        .u-min-height-#{$unit}-#{$percent} {
+            min-height: $percent + $unit;
+        }
+
+        @include generate-breakpoints(min-height, #{$unit}-#{$percent}, $percent + $unit);
+    }
+}
+
+@each $percent in $percentages {
+    .u-min-height-percent-#{$percent} {
+        min-height: $percent * 1%;
+    }
+
+    @include generate-breakpoints(min-height, percent-#{$percent}, $percent * 1%);
+}
+
+.u-min-height-auto {
+    min-height: auto;
+}

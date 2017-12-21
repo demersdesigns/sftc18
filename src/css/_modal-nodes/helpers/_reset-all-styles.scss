@@ -1,0 +1,8 @@
+@mixin u-reset-all-styles() {
+    all: initial;
+}
+
+
+.u-reset-all-styles {
+    @include u-reset-all-styles();
+}

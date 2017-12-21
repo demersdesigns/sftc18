@@ -1,0 +1,16 @@
+$background-position:
+  bottom,
+  center
+  left,
+  right,
+  top
+;
+
+
+@each $value in $background-position {
+    .u-background-position-#{$value} {
+        background-position: $value;
+    }
+
+    @include generate-breakpoints(background-position, $value);
+}

@@ -1,0 +1,7 @@
+@for $i from 1 through 12 {
+    .u-order-#{$i} {
+        order: $i;
+    }
+
+    @include generate-breakpoints(order, $i);
+}

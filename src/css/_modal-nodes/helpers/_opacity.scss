@@ -1,0 +1,14 @@
+@each $percent in $percentages {
+    .u-opacity-#{$percent} {
+        opacity: $percent * 1%;
+    }
+
+    // Breakpoints
+    @each $breakpoint in $breakpoints-primary {
+        @include mappy-bp($breakpoint) {
+            .u-opacity-#{$percent} {
+                opacity: $percent * 1%;
+            }
+        }
+    }
+}

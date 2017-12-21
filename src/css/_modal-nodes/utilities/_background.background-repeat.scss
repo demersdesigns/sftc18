@@ -1,0 +1,17 @@
+$background-repeat:
+  no-repeat,
+  repeat,
+  repeat-x,
+  repeat-y,
+  round,
+  space
+;
+
+
+@each $value in $background-repeat {
+    .u-background-repeat-#{$value} {
+        background-repeat: $value;
+    }
+
+    @include generate-breakpoints(background-repeat, $value);
+}

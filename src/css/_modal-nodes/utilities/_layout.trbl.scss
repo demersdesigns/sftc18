@@ -1,0 +1,21 @@
+@for $i from 1 through $global-iterations {
+    @each $direction in $directions {
+        .u-#{$direction}-ms-#{$i} {
+            #{$direction}: ms($i, rem);
+        }
+
+        @include generate-breakpoints($direction, ms-#{$i}, ms($i, rem));
+    }
+}
+
+@each $percent in $percentages {
+    @each $direction in $directions {
+        @each $unit in $viewport-units {
+            .u-#{$direction}-#{$unit}-#{$percent} {
+                #{$direction}: $percent + $unit;
+            }
+
+            @include generate-breakpoints($direction, #{$unit}-#{$percent}, $percent + $unit);
+        }
+    }
+}

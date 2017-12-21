@@ -1,0 +1,29 @@
+@for $i from 1 through $global-iterations {
+    .u-height-ms-#{$i} {
+        height: ms($i, rem);
+    }
+
+    @include generate-breakpoints(height, ms-#{$i}, #{ms($i, rem)});
+}
+
+@each $percent in $percentages {
+    @each $unit in $viewport-units {
+        .u-height-#{$unit}-#{$percent} {
+            height: $percent + $unit;
+        }
+
+        @include generate-breakpoints(height, vh-#{$percent}, $percent + $unit);
+    }
+}
+
+@each $percent in $percentages {
+    .u-height-percent-#{$percent} {
+        height: $percent * 1%;
+    }
+
+    @include generate-breakpoints(height, percent-#{$percent}, #{$percent * 1%});
+}
+
+.u-height-auto {
+    height: auto;
+}

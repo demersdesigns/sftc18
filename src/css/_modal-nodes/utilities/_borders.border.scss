@@ -1,0 +1,29 @@
+$border-widths: (
+  thickest: rem(9),
+  thicker:  rem(7),
+  thick:    rem(5),
+  thin:     rem(3),
+  thinner:  rem(2),
+  thinnest: 1px
+);
+
+
+@each $width, $value in $border-widths {
+    @each $direction in $directions {
+        .u-border-#{$direction}-#{$width} {
+            border-#{$direction}: $value solid currentColor;
+        }
+
+        @include generate-breakpoints(border-#{$direction}, $width, $value, "solid currentColor");
+    }
+}
+
+@each $direction in $directions {
+    .u-border-#{$direction}-none {
+        @include generate-breakpoints(border-#{$direction}, none, 0);
+    }
+}
+
+.u-border-none {
+    border: none;
+}

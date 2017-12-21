@@ -1,0 +1,14 @@
+$flex-wrap:
+  nowrap,
+  wrap,
+  wrap-reverse
+;
+
+
+@each $value in $flex-wrap {
+    .u-flex-wrap-#{$value} {
+        flex-wrap: $value;
+    }
+
+    @include generate-breakpoints(flex-wrap, $value);
+}

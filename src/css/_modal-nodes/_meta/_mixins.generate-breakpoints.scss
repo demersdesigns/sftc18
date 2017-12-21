@@ -1,0 +1,30 @@
+// SEE: `_meta/lists.breakpoints.scss`
+@mixin generate-breakpoints(
+  $property,
+  $value,
+  $map: null,
+  $string: null
+) {
+    @each $breakpoint in $breakpoints-primary {
+        @include mappy-bp($breakpoint) {
+
+            @if ($map != null) and ($string != null) {
+                .u-#{$property}-#{$value}--#{$breakpoint} {
+                    #{$property}: $map unquote(#{$string});
+                }
+            }
+
+            @if ($map != null) and ($string == null) {
+                .u-#{$property}-#{$value}--#{$breakpoint} {
+                    #{$property}: $map;
+                }
+            }
+
+            @else {
+                .u-#{$property}-#{$value}--#{$breakpoint} {
+                    #{$property}: $value;
+                }
+            }
+        }
+    }
+}

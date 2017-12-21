@@ -2,10 +2,12 @@ import gulp from "gulp";
 import {spawn} from "child_process";
 import hugoBin from "hugo-bin";
 import gutil from "gulp-util";
-import postcss from "gulp-postcss";
-import tailwindcss from "tailwindcss";
-import cssImport from "postcss-import";
-import cssnext from "postcss-cssnext";
+import autoprefix from "gulp-autoprefixer";
+import browsersync from "browser-sync";
+import cssnano from "gulp-cssnano";
+import runSequence from "run-sequence";
+import sass from "gulp-sass";
+import sourcemaps from "gulp-sourcemaps";
 import BrowserSync from "browser-sync";
 import webpack from "webpack";
 import webpackConfig from "./webpack.conf";
@@ -25,15 +27,44 @@ gulp.task("build", ["css", "js"], (cb) => buildSite(cb, [], "production"));
 gulp.task("build-preview", ["css", "js"], (cb) => buildSite(cb, hugoArgsPreview, "production"));
 
 // Compile CSS with PostCSS/Tailwind
-gulp.task("css", () => {
-  gulp.src("./src/css/style.css")
-    .pipe(postcss([
-      tailwindcss("./tailwind-config.js")
-    ]))
-    .pipe(gulp.dest("./dist/css/"))
-    .pipe(browserSync.stream());
+// gulp.task("css", () => {
+//   gulp.src("./src/css/style.css")
+//     .pipe(postcss([
+//       tailwindcss("./tailwind-config.js")
+//     ]))
+//     .pipe(gulp.dest("./dist/css/"))
+//     .pipe(browserSync.stream());
 
+// });
+
+// Tasks
+gulp.task('styles-dev', () => {
+  gulp.src("./src/css/style.scss")
+    .pipe(sourcemaps.init())
+    .pipe(sass({
+      outputStyle: "expanded",
+      errLogToConsole: true
+    }))
+    .pipe(autoprefix())
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest("./dist/css/"))
+    .pipe(browsersync.stream({ match: "**/*.css" }));
 });
+
+
+// gulp.task('styles-dist', function() {
+//   return gulp.src("./source/modal-nodes.scss")
+//     .pipe(sourcemaps.init())
+//     .pipe(sass({
+//       outputStyle: 'compressed',
+//       errLogToConsole: true
+//     }))
+//     .pipe(autoprefix())
+//     .pipe(cssnano({
+//       discardComments: {removeAll: true}
+//     }))
+//     .pipe(gulp.dest("./dist"))
+// });
 
 // Compile Javascript
 gulp.task("js", (cb) => {
@@ -51,14 +82,14 @@ gulp.task("js", (cb) => {
 });
 
 // Development server with browsersync
-gulp.task("server", ["hugo", "css", "js"], () => {
+gulp.task("server", ["hugo", "styles-dev", "js"], () => {
   browserSync.init({
     server: {
       baseDir: "./dist"
     }
   });
   gulp.watch("./src/js/**/*.js", ["js"]);
-  gulp.watch("./src/css/**/*.css", ["css"]);
+  gulp.watch("./src/css/**/*.scss", ["styles-dev"]);
   gulp.watch("./site/**/*", ["hugo"]);
 });
 

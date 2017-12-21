@@ -1,0 +1,16 @@
+$position:
+  absolute,
+  fixed,
+  relative,
+  static,
+  sticky
+;
+
+
+@each $value in $position {
+    .u-position-#{$value} {
+        position: $value;
+    }
+
+    @include generate-breakpoints(position, $value);
+}

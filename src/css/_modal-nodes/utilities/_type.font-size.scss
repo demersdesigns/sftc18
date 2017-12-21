@@ -1,0 +1,7 @@
+@for $i from 1 through $global-iterations {
+    .u-font-size-ms-#{$i} {
+        font-size: ms($i, rem);
+    }
+
+    @include generate-breakpoints(font-size, ms-#{$i});
+}

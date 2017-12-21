@@ -1,0 +1,27 @@
+@mixin u-text-break($word-or-link) {
+    @if ($word-or-link == "word") {
+        hyphens: auto;
+    }
+
+    @else if ($word-or-link == "link") {
+        hyphens: none;
+    }
+
+    @else {
+        @error "`#{$word-or-link}`"
+        + $meta-invalid-argument
+        + $meta-invalid-argument-select-either
+        + "`word` or `link`";
+    }
+}
+
+
+.u-text-break {
+    &-word {
+        @include u-text-break(word);
+    }
+
+    &-link {
+        @include u-text-break(link);
+    }
+}

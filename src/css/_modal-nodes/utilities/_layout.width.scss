@@ -1,0 +1,29 @@
+@for $i from 1 through $global-iterations {
+    .u-width-ms-#{$i} {
+        width: ms($i, rem);
+    }
+
+    @include generate-breakpoints(width, ms-#{$i}, #{ms($i, rem)});
+}
+
+@each $percent in $percentages {
+    @each $unit in $viewport-units {
+        .u-width-#{$unit}-#{$percent} {
+            width: $percent + $unit;
+        }
+
+        @include generate-breakpoints(width, vh-#{$percent}, $percent + $unit);
+    }
+}
+
+@each $percent in $percentages {
+    .u-width-percent-#{$percent} {
+        width: $percent * 1%;
+    }
+
+    @include generate-breakpoints(width, percent-#{$percent}, #{$percent * 1%});
+}
+
+.u-width-auto {
+    width: auto;
+}
