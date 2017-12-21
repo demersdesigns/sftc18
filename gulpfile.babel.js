@@ -30,7 +30,8 @@ gulp.task("css", () => {
     .pipe(postcss([
       tailwindcss("./tailwind-config.js")
     ]))
-    .pipe(gulp.dest("./dist/css/"));
+    .pipe(gulp.dest("./dist/css/"))
+    .pipe(browserSync.stream());
 
 });
 

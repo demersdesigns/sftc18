@@ -1,13 +1,33 @@
 baseurl = "/"
 languageCode = "en-us"
-title = "Blank"
-theme = "sftc"
+title = "StarFun Theater Camp"
 
 [params]
 	# To provide some metadata for search engines feel free to add a few
   # information about you and your website.
-	name = "Your name"
-	description = "Describe your website"
+	name = "StarFun Theater Camp"
+	description = "StarFun Theater Camp is a theater camp for kids entering grades 1-8 located in Framingham, MA"
 
 	# Format dates with Go's time formatting
 	date_format = "01-02-2006"
+
+	[[menu.main]]
+    name = "About StarFun"
+    weight = 1
+    identifier = "about"
+    url = "/about-starfun/"
+	[[menu.main]]
+		name = "Current Season"
+    weight = 2
+    identifier = "current-season"
+    url = "/current-season/"
+[[menu.main]]
+		name = "Photo Gallery"
+    weight = 3
+    identifier = "photo-gallery"
+    url = "/photo-gallery/"
+[[menu.main]]
+		name = "Contact"
+    weight = 4
+    identifier = "contact"
+    url = "/contact/"
