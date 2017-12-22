@@ -8,6 +8,7 @@ import cssnano from "gulp-cssnano";
 import runSequence from "run-sequence";
 import sass from "gulp-sass";
 import sourcemaps from "gulp-sourcemaps";
+import download from "gulp-download-stream";
 import BrowserSync from "browser-sync";
 import webpack from "webpack";
 import webpackConfig from "./webpack.conf";
@@ -23,32 +24,29 @@ gulp.task("hugo", (cb) => buildSite(cb));
 gulp.task("hugo-preview", (cb) => buildSite(cb, hugoArgsPreview));
 
 // Build/production tasks
-gulp.task("build", ["css", "js"], (cb) => buildSite(cb, [], "production"));
-gulp.task("build-preview", ["css", "js"], (cb) => buildSite(cb, hugoArgsPreview, "production"));
+gulp.task("build", ["styles-dev", "js"], (cb) => buildSite(cb, [], "production"));
+gulp.task("build-preview", ["styles-dev", "js"], (cb) => buildSite(cb, hugoArgsPreview, "production"));
 
-// Compile CSS with PostCSS/Tailwind
-// gulp.task("css", () => {
-//   gulp.src("./src/css/style.css")
-//     .pipe(postcss([
-//       tailwindcss("./tailwind-config.js")
-//     ]))
-//     .pipe(gulp.dest("./dist/css/"))
-//     .pipe(browserSync.stream());
-
-// });
+gulp.task("sync-tokens", () => {
+  download({
+    file: "_style-params.scss",
+    url: "https://projects.invisionapp.com/dsm-export/demers-designs/star-fun-theater-camp/_style-params.scss?key=Syuyy08zG"
+  })
+    .pipe(gulp.dest("./src/css/"));
+});
 
 // Tasks
-gulp.task('styles-dev', () => {
+gulp.task("styles-dev", () => {
   gulp.src("./src/css/style.scss")
-    .pipe(sourcemaps.init())
+    //.pipe(sourcemaps.init())
     .pipe(sass({
       outputStyle: "expanded",
       errLogToConsole: true
     }))
-    .pipe(autoprefix())
-    .pipe(sourcemaps.write())
+    //.pipe(autoprefix())
+    //.pipe(sourcemaps.write())
     .pipe(gulp.dest("./dist/css/"))
-    .pipe(browsersync.stream({ match: "**/*.css" }));
+    .pipe(browserSync.stream({match: "**/*.css"}));
 });
 
 

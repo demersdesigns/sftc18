@@ -1,1 +1,25 @@
-@import "_modal-nodes/_modal-nodes"
+@import "_style-params";
+
+h1,h2,h3,h4{
+  font-family: $font-header-fill-dark-primary-font-family;
+}
+
+h1{
+  font-size: $font-header-fill-dark-primary-font-size;
+  line-height: $font-header-fill-dark-primary-line-height;
+}
+
+h2{
+  font-size: $font-header-fill-dark-secondary-font-size;
+  line-height: $font-header-fill-dark-secondary-line-height;
+}
+
+h3{
+  font-size: $font-header-fill-dark-tertiary-font-size;
+  line-height: $font-header-fill-dark-tertiary-line-height;
+}
+
+h4{
+  font-size: $font-header-fill-dark-quaternary-font-size;
+  line-height: $font-header-fill-dark-quaternary-line-height;
+}
